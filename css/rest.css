@@ -1,0 +1,26 @@
+/* 这里存放的是样式重置 */
+
+body,div,ul,li,a,img,i {
+  /* 去除默认样式 */
+  padding: 0;
+  margin: 0;
+}
+
+ul,li {
+  /* 去除小圆点 */
+  list-style: none;
+}
+
+a {
+  /* 去除下划线 */
+  text-decoration: none;
+  color: #333;
+}
+
+img {
+  vertical-align: top;
+}
+
+i {
+  font-style: normal;
+}

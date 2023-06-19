@@ -1,0 +1,21 @@
+/* 这里存放的是公共样式 */
+
+body {
+  background-color: rgb(241, 243, 245);
+}
+
+/* 版心 */
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.nowrap_ellipsis {
+  /* 🚚 单行文本显示省略号 */
+  /* 1.文本不换行显示 */
+  white-space: nowrap;
+  /* 2.文本超出隐藏 */
+  overflow: hidden;
+  /* 3.文本超出显示省略号 */
+  text-overflow: ellipsis;
+}

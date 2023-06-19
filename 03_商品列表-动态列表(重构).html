@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 样式重置 -->
+  <link rel="stylesheet" href="./css/rest.css">
+  <!-- 公共样式 -->
+  <link rel="stylesheet" href="./css/common.css">
+  <!-- 商品列表 -->
+  <link rel="stylesheet" href="./css/product.css">
+</head>
+
+<body>
+  <!-- 版心 -->
+  <div class="wrapper">
+    <!-- crumbs 面包屑(导航) -->
+    <div class="crumbs">
+      <span class="item">首页</span>
+      <span>&gt;</span>
+      <span class="item">笔记本</span>
+    </div>
+
+    <!-- 对内容进行操作(operation) -->
+    <div class="operation">
+      <!-- 分类 -->
+      <ul class="row category">
+        <li class="item">分类 ：</li>
+        <li class="item active">笔记本</li>
+        <li class="item">MateBook E系列</li>
+        <li class="item">MateBook D系列</li>
+        <li class="item">MateBook X系列</li>
+        <li class="item">华为显示器系列</li>
+        <li class="item">MateBook B系列</li>
+        <li class="item nowrap_ellipsis">MateBook数字系列</li>
+      </ul>
+      <!-- 优惠 -->
+      <ul class="row discount">
+        <li class="item">服务优惠 ：</li>
+        <li class="item">仅看有货</li>
+        <li class="item">分期免息</li>
+        <li class="item">优惠商品</li>
+      </ul>
+      <!-- 排序 -->
+      <ul class="row sort">
+        <li class="item">排序 ：</li>
+        <li class="item active">综合</li>
+        <li class="item">最新</li>
+        <li class="item">评论数</li>
+        <li class="item">价格</li>
+      </ul>
+    </div>
+
+    <!-- 商品列表部分 -->
+    <ul class="products">
+    </ul>
+  </div>
+
+  <script src="./json/product_data.js"></script>
+  <script>
+    // 0.资源服务器的地址
+    var serverURL = "https://res.vmallres.com/pimages"
+
+    // 1.获取元素
+    var productsEl = document.querySelector(".products")
+
+    // 2.动态的展示商品列表
+    for (var i = 0; i < resultList.length; i++) {
+      // 2.1 获取一条数据
+      var resultItem = resultList[i]
+
+      // 2.2 将这条数据转换成界面一个item
+
+      // 1)创建li元素
+      var itemEl = document.createElement("li")
+      itemEl.classList.add("item")
+      productsEl.append(itemEl)
+
+      // 标签
+      var tagString = ""
+      // 判断是否有这个标签,如果有就创建
+      if (resultItem.tag) {
+        tagString = `<i class="tag">${resultItem.tag}</i>`
+      }
+
+      // 服务
+      var serviceString = ""
+
+      // 🚚 方法一: for
+      // for (var j = 0; j < resultItem.promoLabels.length; j++) {
+      //   serviceString += `<span class="tip">${resultItem.promoLabels[j]}</span>`
+      // }
+
+      // 🚚 方法二: for...of
+      for (var label of resultItem.promoLabels) {
+        serviceString += `<span class="tip">${label}</span>`
+      }
+
+
+      // 价格
+      var priceString = "";
+      // 🚚 方法一: for
+      // for (var key in resultItem.price) {
+      //   var value = resultItem.price[key];
+      //   if (key === "newPrice") {
+      //     priceString += "<span class='new-price'>¥" + value + "</span>";
+      //   } else if (key === "oldPrice") {
+      //     priceString += "<span class='old-price'>¥" + value + "</span>";
+      //   }
+      // }
+
+      // 🚚 方法二: for...in
+      for (var key in resultItem.price) {
+        var value = resultItem.price[key]
+        if (key === "newPrice") {
+          priceString += "<span class='new-price'>¥" + value + "</span>";
+        } else if (key === "oldPrice") {
+          priceString += "<span class='old-price'>¥" + value + "</span>";
+        }
+      }
+      // itemEl里面的内容
+      itemEl.innerHTML = `
+        <a href="#">
+          <!-- 封面 -->
+          <img class="album" src="${serverURL}${resultItem.photoPath}800_800_${resultItem.photoName}" alt="">
+          <!-- 名字 -->
+          <div class="name">
+            ${tagString}
+            <span class="title nowrap_ellipsis">${resultItem.name}</span>
+          </div>
+          <!-- 描述 -->
+          <div class="describe nowrap_ellipsis">${resultItem.promotionInfo}</div>
+          <!-- 服务 -->
+          <div class="service">${serviceString}</div>
+          <!-- 价格 -->
+          <div class="price">${priceString}</div>
+          <!-- 评论 -->
+          <div class="comment">
+            <span>${resultItem.rateCount}人评价</span>
+            <span>${resultItem.goodRate}%好评</span>
+          </div>
+        </a>
+      `
+    }
+  </script>
+</body>
+
+</html>

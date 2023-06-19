@@ -1,0 +1,188 @@
+/* 这里存放的是商品列表 */
+
+/* crumbs 面包屑(导航) */
+.crumbs {
+  display: flex;
+  height: 63px;
+  margin-top: 100px;
+  line-height: 63px;
+  font-size: 12px;
+  color: #000;
+}
+
+.crumbs .item {
+  /* 鼠标小手 */
+  cursor: pointer;
+}
+
+.crumbs .item:last-child {
+  font-weight: 700;
+}
+
+/* > */
+.crumbs span:not(.item) {
+  padding: 0 2px;
+}
+
+/* 操作 */
+.operation {
+  padding: 0 24px;
+  background-color: #fff;
+}
+
+.operation>.row {
+  display: flex;
+}
+
+.operation>.row .item {
+  width: 104px;
+  height: 48px;
+  box-sizing: border-box;
+  margin: 0 8px;
+  padding: 0 4px;
+  line-height: 48px;
+  font-size: 12px;
+  color: #000;
+  /* 鼠标小手 */
+  cursor: pointer;
+}
+
+.operation>.row .item:first-child {
+  color: #333;
+  /* 透明度 */
+  opacity: 0.6;
+  /* 默认不要鼠标小手 */
+  cursor: auto;
+}
+
+.operation>.row .item.active {
+  color: #cf0a2c;
+}
+
+/* 商品列表 */
+.products {
+  display: flex;
+  /* 换行 */
+  flex-wrap: wrap;
+  /* 水平方向两端对齐 */
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.products>.item {
+  width: 291px;
+  margin-bottom: 12px;
+  background-color: #fff;
+}
+
+.products>.item:hover {
+  box-shadow: rgba(0, 0, 0, .1) 0 0 36px;
+}
+
+.products>.item a {
+  /* display: block; */
+
+  /* 🔥 图片水平居中对齐 */
+  /* 🚚 方法一 */
+  /* text-align: center; */
+  /* 🚚 方法二 */
+  display: flex;
+  /* 改变主轴方向 */
+  flex-direction: column;
+  /* 水平方向居中对齐 */
+  align-items: center;
+}
+
+/* 封面 */
+.products>.item .album {
+  width: 180px;
+  height: 180px;
+  margin: 30px 0;
+}
+
+/* 名字 */
+.products>.item .name {
+  display: flex;
+  align-items: center;
+  height: 19px;
+  color: #000;
+}
+
+.products>.item .name .tag {
+  height: 16px;
+  margin-right: 4px;
+  padding: 0 4px;
+  line-height: 16px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #fa3040;
+  border-radius: 4px;
+}
+
+.products>.item .name .title {
+  width: 211px;
+}
+
+/* 描述 */
+.products>.item .describe {
+  width: 243px;
+  height: 18px;
+  margin-top: 4px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 13px;
+  color: #000;
+  opacity: 0.5;
+}
+
+/* 价格 */
+.products>.item .price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  font-weight: 700;
+  color: #000;
+}
+
+.products>.item .price .old-price {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.4;
+  /* 删除线 */
+  text-decoration: line-through;
+}
+
+/* 服务 */
+.products>.item .service {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.products>.item .service .tip {
+  margin-right: 4px;
+  padding: 0 4px;
+  font-size: 12px;
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+.products>.item .service .tip:first-child {
+  color: #cf0a2c;
+  border-color: #e2002466;
+}
+
+/* 评论 */
+.products>.item .comment {
+  display: flex;
+  margin: 8px 0 19px;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.products>.item .comment span:first-child {
+  margin-right: 8px;
+}

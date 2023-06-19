@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 样式重置 -->
+  <link rel="stylesheet" href="./css/rest.css">
+  <!-- 公共样式 -->
+  <link rel="stylesheet" href="./css/common.css">
+  <!-- 商品列表 -->
+  <link rel="stylesheet" href="./css/product.css">
+</head>
+
+<body>
+  <!-- 版心 -->
+  <div class="wrapper">
+    <!-- crumbs 面包屑(导航) -->
+    <div class="crumbs">
+      <span class="item">首页</span>
+      <span>&gt;</span>
+      <span class="item">笔记本</span>
+    </div>
+
+    <!-- 对内容进行操作(operation) -->
+    <div class="operation">
+      <!-- 分类 -->
+      <ul class="row category">
+        <li class="item">分类 ：</li>
+        <li class="item active">笔记本</li>
+        <li class="item">MateBook E系列</li>
+        <li class="item">MateBook D系列</li>
+        <li class="item">MateBook X系列</li>
+        <li class="item">华为显示器系列</li>
+        <li class="item">MateBook B系列</li>
+        <li class="item nowrap_ellipsis">MateBook数字系列</li>
+      </ul>
+      <!-- 优惠 -->
+      <ul class="row discount">
+        <li class="item">服务优惠 ：</li>
+        <li class="item">仅看有货</li>
+        <li class="item">分期免息</li>
+        <li class="item">优惠商品</li>
+      </ul>
+      <!-- 排序 -->
+      <ul class="row sort">
+        <li class="item">排序 ：</li>
+        <li class="item active">综合</li>
+        <li class="item">最新</li>
+        <li class="item">评论数</li>
+        <li class="item">价格</li>
+      </ul>
+    </div>
+
+    <!-- 商品列表部分 -->
+    <ul class="products">
+    </ul>
+  </div>
+
+  <script src="./json/product_data.js"></script>
+  <script>
+    // 0.资源服务器的地址
+    var serverURL = "https://res.vmallres.com/pimages"
+
+    // 1.获取元素
+    var productsEl = document.querySelector(".products")
+
+    // 2.动态的展示商品列表
+    for (var i = 0; i < resultList.length; i++) {
+      // 2.1 获取一条数据
+      var resultItem = resultList[i]
+
+      // 2.2 将这条数据转换成界面一个item
+
+      // 1)创建li元素
+      var itemEl = document.createElement("li")
+      itemEl.classList.add("item")
+      productsEl.append(itemEl)
+
+      // 3)创建a元素
+      var aEl = document.createElement("a")
+      aEl.href = "#"
+      itemEl.append(aEl)
+
+      // 4)创建img元素
+      var albumEl = document.createElement("img")
+      albumEl.classList.add("album")
+      albumEl.src = `${serverURL}${resultItem.photoPath}800_800_${resultItem.photoName}`
+      // albumEl.src = `${serverURL}${resultItem.photoPath}428_428_${resultItem.photoName}`
+      aEl.append(albumEl)
+
+      // 5)创建name
+      var nameEl = document.createElement("div")
+      nameEl.classList.add("name")
+      aEl.append(nameEl)
+
+      // 判断是否有这个标签,如果有就创建
+      if (resultItem.tag) {
+        var tagEl = document.createElement("i")
+        tagEl.classList.add("tag")
+        tagEl.textContent = resultItem.tag
+        nameEl.append(tagEl)
+      }
+
+      var titleEl = document.createElement("span")
+      titleEl.classList.add("title", "nowrap_ellipsis")
+      titleEl.textContent = resultItem.name
+      nameEl.append(titleEl)
+
+      // 6)创建describe
+      var describeEl = document.createElement("div")
+      describeEl.classList.add("describe", "nowrap_ellipsis")
+      describeEl.textContent = resultItem.promotionInfo
+      aEl.append(describeEl)
+
+      // 7)创建service
+      var serviceEl = document.createElement("div")
+      serviceEl.classList.add("service")
+      aEl.append(serviceEl)
+
+      // 🚚 方法一: for
+      // for (var j = 0; j < resultItem.promoLabels.length; j++) {
+      //   var tipEl = document.createElement("span")
+      //   tipEl.classList.add("tip")
+      //   tipEl.textContent = resultItem.promoLabels[j]
+      //   serviceEl.append(tipEl)
+      // }
+
+      // 🚚 方法二: for...of
+      for (var label of resultItem.promoLabels) {
+        var tipEl = document.createElement("span")
+        tipEl.classList.add("tip")
+        tipEl.textContent = label
+        serviceEl.append(tipEl)
+      }
+
+      // 8)创建price
+      var priceEl = document.createElement("div")
+      priceEl.classList.add("price")
+      aEl.append(priceEl)
+
+      // 🚚 方法一: Object.keys() + for
+      // var priceKeys = Object.keys(resultItem.price)
+      // for (var m = 0; m < priceKeys.length; m++) {
+      //   var key = priceKeys[m]
+      //   var value = resultItem.price[key]
+      //   if (key === "newPrice") {
+      //     var newPriceEl = document.createElement("span")
+      //     newPriceEl.classList.add("new-price")
+      //     newPriceEl.textContent = "¥" + value
+      //     priceEl.append(newPriceEl)
+      //   } else if (key === "oldPrice") {
+      //     var oldPriceEl = document.createElement("span")
+      //     oldPriceEl.classList.add("old-price")
+      //     oldPriceEl.textContent = "¥" + value
+      //     priceEl.append(oldPriceEl)
+      //   }
+      // }
+
+
+      // 🚚 方法二: for...in
+      for (var key in resultItem.price) {
+        var value = resultItem.price[key]
+        if (key === "newPrice") {
+          var newPriceEl = document.createElement("span")
+          newPriceEl.classList.add("new-price")
+          newPriceEl.textContent = "¥" + value
+          priceEl.append(newPriceEl)
+        } else if (key === "oldPrice") {
+          var oldPriceEl = document.createElement("span")
+          oldPriceEl.classList.add("old-price")
+          oldPriceEl.textContent = "¥" + value
+          priceEl.append(oldPriceEl)
+        }
+      }
+
+      // 9)创建comment
+      var commentEl = document.createElement("div")
+      commentEl.classList.add("comment")
+      aEl.append(commentEl)
+
+      var countEl = document.createElement("span")
+      countEl.textContent = `${resultItem.rateCount}人评论`
+      commentEl.append(countEl)
+
+      var goodEl = document.createElement("span")
+      goodEl.textContent = `${resultItem.goodRate}好评`
+      commentEl.append(goodEl)
+    }
+  </script>
+</body>
+
+</html>
